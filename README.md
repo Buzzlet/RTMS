@@ -10,6 +10,7 @@ Ristvedt Ticket Management System
 # Ristvedt Ticket Management System (RTMS)
 
 ## Data
+* https://dev.mysql.com/doc/refman/8.1/en/
 * User table
     * user id (primary unqiue)
     * user name
