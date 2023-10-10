@@ -4,6 +4,7 @@ Ristvedt Ticket Management System
 ## Install
 * python 3.11!!!!
 * https://visualstudio.microsoft.com/visual-cpp-build-tools/
+* https://dev.mysql.com/downloads/installer/
 * https://mariadb.com/downloads/connectors/
 * pip install mysqlclient
 

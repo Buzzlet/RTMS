@@ -1,0 +1,6 @@
+# my.cnf
+[client]
+database = rtms
+user = jristvedt
+password = KRvWebV5FzvL
+default-character-set = utf8
