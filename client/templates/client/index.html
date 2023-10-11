@@ -1,0 +1,9 @@
+{% if user_tickets %}
+    <ul>
+    {% for tkt in user_tickets %}
+        <li><a href="{% url 'ticket' tkt.tkt_num %}">{{ tkt.tkt_num }}</a>{{ tkt.title }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No tickets are available.</p>
+{% endif %}
