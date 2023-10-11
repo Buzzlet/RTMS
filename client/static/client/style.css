@@ -1,7 +1,47 @@
-li a {
-	color: green;
+body {
+    background-color: white;
+    background-image: url("images/FFLogo.jpg");
+    background-position: right top;
+    background-size: 300px 100px;
+    background-repeat: no-repeat;
 }
 
-body {
-    background: white url("images/Capture.PNG") no-repeat;
+h1 {
+    display: block;
+    font-size: 2.5em;
+    padding: 5px;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 5px;
+    margin-right: 0;
+    font-weight: bold;
+    color: #013651;
+}
+
+.container {
+  display: block;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.box {
+  border: 3px solid #666;
+  background-color: #ddd;
+  border-radius: .5em;
+  padding: 10px;
+  cursor: move;
+  margin-bottom: 0.5em;
+}
+
+.box.over {
+  border: 3px dotted #666;
+}
+
+.field {
+  margin-top: .5em;
+  margin-bottom: .5em;
+  margin-left: 3px;
+  margin-right: 3px;
+  font-weight: bold;
+  color: #013651;
 }

@@ -4,11 +4,78 @@
 
 <h1>Tickets{% if usr %} for {{ usr.userid }} {% endif %}</h1>
 {% if user_tickets %}
-    <ul>
+    <div class="container">
     {% for tkt in user_tickets %}
-        <li><a href="{% url 'client:ticket' tkt.tkt_num %}">{{ tkt.tkt_num }}</a>{{ tkt.title }}</li>
+        <div draggable="true" class="box" precedence={{ tkt.precedence }} tkt_num={{ tkt.tkt_num }}>
+            <b>
+            <a href="{% url 'client:ticket' tkt.tkt_num %}">
+                {{ tkt.tkt_num }}
+            </a>
+            &emsp;
+                {{ tkt.title }}
+            </b>
+        </div>
     {% endfor %}
-    </ul>
+    </div>
 {% else %}
     <p>No tickets are available.</p>
 {% endif %}
+
+<script>
+
+document.addEventListener('DOMContentLoaded', (event) => {
+
+  function handleDragStart(e) {
+    this.style.opacity = '0.4';
+  
+    dragSrcEl = this;
+  
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', this.innerHTML);
+  }
+
+  function handleDragEnd(e) {
+    this.style.opacity = '1';
+
+    items.forEach(function (item) {
+      item.classList.remove('over');
+    });
+  }
+
+  function handleDragOver(e) {
+    e.preventDefault();
+    return false;
+  }
+
+  function handleDragEnter(e) {
+    this.classList.add('over');
+  }
+
+  function handleDragLeave(e) {
+    this.classList.remove('over');
+  }
+  
+  function handleDrop(e) {
+    e.stopPropagation();
+
+    if (dragSrcEl !== this) {
+      dragSrcEl.innerHTML = this.innerHTML;
+      <!-- https://stackoverflow.com/questions/35668037/html5-draggable-list-multiple-setdata -->
+      this.innerHTML = e.dataTransfer.getData('text/html');
+    }
+
+    return false;
+  }
+
+  let items = document.querySelectorAll('.container .box');
+  items.forEach(function(item) {
+    item.addEventListener('dragstart', handleDragStart);
+    item.addEventListener('dragover', handleDragOver);
+    item.addEventListener('dragenter', handleDragEnter);
+    item.addEventListener('dragleave', handleDragLeave);
+    item.addEventListener('dragend', handleDragEnd);
+    item.addEventListener('drop', handleDrop);
+  });
+});
+
+</script>
