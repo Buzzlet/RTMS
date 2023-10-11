@@ -5,9 +5,11 @@ from .models import User, Ticket, Task, Note
 
 # Create your views here.
 def index(request):
-    user_tickets = User.objects.get(userid="jristvedt").ticket_set.order_by("precedence")
+    usr = User.objects.get(userid="jristvedt")
+    user_tickets = usr.ticket_set.order_by("precedence")
     # template = loader.get_template("client/index.html")
     context = {
+        "usr": usr,
         "user_tickets": user_tickets,
     }
     # return HttpResponse(template.render(context,request))

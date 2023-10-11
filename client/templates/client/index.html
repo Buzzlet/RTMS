@@ -1,7 +1,12 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'client/style.css' %}">
+
+<h1>Tickets{% if usr %} for {{ usr.userid }} {% endif %}</h1>
 {% if user_tickets %}
     <ul>
     {% for tkt in user_tickets %}
-        <li><a href="{% url 'ticket' tkt.tkt_num %}">{{ tkt.tkt_num }}</a>{{ tkt.title }}</li>
+        <li><a href="{% url 'client:ticket' tkt.tkt_num %}">{{ tkt.tkt_num }}</a>{{ tkt.title }}</li>
     {% endfor %}
     </ul>
 {% else %}
