@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 
 from . import views
 
@@ -6,6 +6,8 @@ app_name = "client"
 urlpatterns = [
     # ex: /client/
     path("", views.index, name="index"),
+    # ex: /client/accounts/
+    path("accounts/", include("django.contrib.auth.urls")), 
     # ex: /client/453623
     path("<str:tkt_num>/", views.ticket, name="ticket"),
     # ex: /client/453623/1

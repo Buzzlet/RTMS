@@ -21,8 +21,8 @@
     <p>No tickets are available.</p>
 {% endif %}
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
-
 document.addEventListener('DOMContentLoaded', (event) => {
 
   function handleDragStart(e) {
@@ -59,9 +59,24 @@ document.addEventListener('DOMContentLoaded', (event) => {
     e.stopPropagation();
 
     if (dragSrcEl !== this) {
+    
+      // Swap displayed data
       dragSrcEl.innerHTML = this.innerHTML;
-      <!-- https://stackoverflow.com/questions/35668037/html5-draggable-list-multiple-setdata -->
       this.innerHTML = e.dataTransfer.getData('text/html');
+      
+      // Swap attributes too
+      tktPrec = this.attributes["precedence"].value;
+      tktNum = this.attributes["tkt_num"].value;
+      this.setAttribute("precedence", dragSrcEl.attributes["precedence"].value);
+      this.setAttribute("tkt_num", dragSrcEl.attributes["tkt_num"].value);
+      dragSrcEl.setAttribute("precedence", tktPrec);
+      dragSrcEl.setAttribute("tkt_num", tktNum);
+      
+      // Send back to the db to remember the order
+      url = "{% url 'client:swap' 'PLACEHOLDER1' 'PLACEHOLDER2' %}";
+      url = url.replace("PLACEHOLDER1", dragSrcEl.attributes["tkt_num"].value);
+      url = url.replace("PLACEHOLDER2", this.attributes["tkt_num"].value);
+      $.get(url, function (r){console.log(r);})
     }
 
     return false;

@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 # from django.template import loader
 from .models import User, Ticket, Task, Note
+import json
 
 # Create your views here.
 def index(request):
@@ -28,12 +29,16 @@ def note(request, tkt_num, task_num, note_id):
     
 def swap(request, tkt_num1, tkt_num2):
     usr = get_object_or_404(User, userid="jristvedt")
-    tkt = usr.ticket_set.get(tkt_num=tkt_num1)
+    tkt1 = usr.ticket_set.get(tkt_num=tkt_num1)
     tkt2 = usr.ticket_set.get(tkt_num=tkt_num2)
     tmp = tkt2.precedence
     tkt2.precedence = tkt1.precedence
     tkt1.precedence = tmp
     tkt1.save()
     tkt2.save()
-    response_date = {'success':1}
-    return HttpResponse(json.dumps(response_date), content_type="application/json")
+    response_data = {'success':1}
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+    
+def login(request):
+    print("login")
+    return HttpResponse("howdy")

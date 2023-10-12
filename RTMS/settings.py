@@ -55,7 +55,9 @@ ROOT_URLCONF = 'RTMS.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / "templates",
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -103,6 +105,15 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# Authentication backend
+# https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-AUTHENTICATION_BACKENDS
+AUTHENTICATION_BACKENDS = [
+    "django_auth_ldap.backend.LDAPBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
+AUTH_LDAP_SERVER_URI = "ldaps://ldap1.futurefoam.com,ldaps://ldap2.futurefoam.com"
 
 
 # Internationalization
